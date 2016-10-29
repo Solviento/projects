@@ -1,0 +1,7 @@
+#!/bin/bash
+#A logout script (hw4)
+
+timestamp=`date ''+%m-%d-%Y_%H:%M:%S''`
+logfile="/home/jp3476/hw4bin/logout.log"
+
+echo "logged out at " $timestamp >> "$logfile"
