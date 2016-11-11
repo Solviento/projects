@@ -24,7 +24,7 @@ $git clone 'url'
 	Clones a git respository to current working directory. Can obtain a
 	git clone url from most GitHub online repositories.
 
-$git checkout 'master/MyBranch/etc'
+$git checkout 'master/ or MyBranch/ or etc'
 	Switches to either master branch or some working branch in the git 
 	repository. MyBranch is an example of a branch that someone may work 
 	on without any consequence to the master branch.
