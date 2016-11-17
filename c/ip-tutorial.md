@@ -79,7 +79,7 @@ Byte Order
 	The function Host to Network Short is used for this purpose:
 
 	htons() - Host to Network Short
-	hton()  - Host to Network Long
+	htonl()  - Host to Network Long
 	ntohs() - Network to Host Short
 	ntohl() - Network to Host Long
 
