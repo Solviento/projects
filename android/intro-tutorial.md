@@ -34,6 +34,20 @@ MainActivity.java
  will be located in the java folder.
 
 
-Setting Up an Android Emulator
+activity_main.xml
 
-- ..
+- Can be found in main->res->layout
+- This xml file describes the user interface. You can either modify
+ the code or use the UI designer that change the code accordingly
+
+ More xml files
+ - The values folder (found in main->res->values) contains even more
+  xml files that we can modify.
+
+  strings.xml
+  - Rather than hardcoding string values straight into the code, we
+  use reference IDs in strings.xml to allow any needed changes in strings
+
+ Writing the App
+
+ - First 
