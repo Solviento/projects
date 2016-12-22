@@ -44,7 +44,7 @@ Accessing Structs
 
 strName.x	- Accesses member 'x' of a struct declared in the stack
 
-ptrName->x	- Accesses member 'x' of a struct declared in the heap
+ptrName->x	- Accesses member 'x' of a struct declared in the heap (usually a ptr)
 
 Pointers (major topic in AP)
 
