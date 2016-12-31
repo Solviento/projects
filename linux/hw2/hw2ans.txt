@@ -1,0 +1,5 @@
+Where is the script hello.coms3102?
+Its located in /usr/bin/hello.coms3102
+
+What command did I use to discover the script?
+I used the "which" command to located the script file.
