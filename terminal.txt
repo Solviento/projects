@@ -1,0 +1,9 @@
+Useful Terminal Commands
+
+	Moving a directory one level up
+
+		mv myfolder ..
+	
+	Rename a directory
+
+		mv oldFolder newFolder
