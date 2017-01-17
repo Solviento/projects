@@ -23,7 +23,7 @@ public class p1{
 
 		int maxIndex = 0;
 		for (int i = 1; i < arr.length; i++){
-		/* Starts at 1 since arr[0] is alredy the largest in the array by default */
+		/* Starts at 1 since arr[0] is our starter element */
 			
 			/*Note compareTo requires two comparable generic objects */
 			if (arr[i].compareTo(arr[maxIndex]) > 0)
@@ -43,6 +43,7 @@ public class p1{
 		/* Creating a rectangle array is just like any other type array */
 		Rectangle[] rects = {rect1, rect2, rect3};
 
+		// Should print out rect3
 		System.out.println(findMax(rects));
 	}
 }
