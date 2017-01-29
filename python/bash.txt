@@ -1,0 +1,6 @@
+Need to instantiate classes, not refer to the class itself
+Must also explicitly declare 'self' in functions that 
+pertain to custom classes - since runtime complains that
+when we instantiate a class and call a function from that
+instantiation, the 'self' parameter becomes implicit, even
+if it is called as obj.sum().
