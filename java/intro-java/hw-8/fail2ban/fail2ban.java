@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Fail2Ban {
+public class fail2ban {
 
 	public static void main(String[] args) {
 
