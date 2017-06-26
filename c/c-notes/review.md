@@ -34,7 +34,7 @@ int get_num_elements(int a[]){
 int main(){
 	int a[10];
 	cout << get_num_elements(a) << endl;	// When a[10] gets passed as an arg, it is casted to a pointer
-												// meaning its size will take 8 bytes
+											// meaning its size will take 8 bytes
 	return 0;
 }
 
@@ -144,7 +144,7 @@ int main(){
 
 No memory leaks. Will print "123"
 
-What happens when?
+What happens when:
 
 vector<MyString> vtr;
 vector<MyString>::iterator f(){
@@ -159,7 +159,7 @@ int main(){
 *(f()) will dereference the iterator pointer and give you the contents of MyString which is
 "123". No memory leaks since vector's destructor will clear all resources used.
 
-What happens when?
+What happens when:
 
 SmartPtr<MyString> f(){
 	MyString t = MyString("1") + "2" + MyString('3'); // Error
