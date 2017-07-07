@@ -1,4 +1,5 @@
 *.log
 *.o
 !*.c
+!*.cpp
 !Makefile
