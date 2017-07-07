@@ -56,3 +56,19 @@ Industrial Workflow:
 		git push origin fix-part-B
 
 		git pull --rebase origin master
+
+Problems and solutions
+
+"updates were rejected because the remote contains work that you do not have"
+// likely due to adding a new README file
+
+git remote add origin [//github url]
+
+git pull origin master
+
+git push origin master
+
+"updates were rejected because the tip of your current branch is behind"
+// likely due to adding mutliple commits from different machines
+
+git push -f origin <branch>
