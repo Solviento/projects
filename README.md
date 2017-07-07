@@ -4,8 +4,8 @@ Projects completed in the past two years.
 Contents:
 
 C
-	- Notes and programs.
-	- Web server made from scratch
+- Notes and programs.
+-  Web server made from scratch
 
 C++
 	- Notes and programs.
