@@ -6,3 +6,5 @@ intro-java
 data-structs
 - Homework files from Data Structures (Columbia University, Fall 2015)
 
+java-files
+- Side projects taken from the web in order to further my own understanding of Java
