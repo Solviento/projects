@@ -1,0 +1,14 @@
+Useful Terminal Commands
+
+	Moving a directory one level up
+
+		mv <foldername> ..
+	
+	Rename a directory
+
+		mv <foldername> <newFolder>
+	
+	Recursively delete a folder
+
+		rm -f <filename>
+
