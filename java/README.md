@@ -1,9 +1,8 @@
 Contents
 
-Intro Java
-	- All homework from Intro to Computer Science in Java 2015
+intro-java
+- Homework files from Intro to Computer Science (Columbia University, Spring 2015)
 
-Data Structs
-	- All homework from Data Structures in Java 2015
-
+data-structs
+- Homework files from Data Structures (Columbia University, Fall 2015)
 
