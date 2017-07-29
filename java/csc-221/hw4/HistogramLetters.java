@@ -12,6 +12,8 @@ import java.lang.IllegalStateException;
 import java.nio.file.Paths; 
 import java.util.*;
 
+// when submitting this, remove "extends JFrame"
+
 public class HistogramLetters extends JFrame{
 	
 	private static Scanner input;
