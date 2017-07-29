@@ -29,6 +29,10 @@ git checkout 'master/ or MyBranch/ or etc'
 	repository. MyBranch is an example of a branch that someone may work 
 	on without any consequence to the master branch.
 
+git pull
+	Good for updating a local branch when a remote branch is updated with
+	changes.
+
 git pull --rebase origin master
 	Attempts to integrate the new commits from GitHub with the new commits
 	on your computer
