@@ -68,4 +68,41 @@ my_squareroot(9)
 
 ans = 3
 
+Notes
+- A function will use its own workspace
+- A .m file is either a script or a function
+- A .mat file contains only information on variables and their values
+- DO NOT mix functions and scripts into the same file
+- EACH function file should contain only ONE function
+
+Display function
+- We use 
+disp()
+- to display a message, we can also use it to display a value in a variable
+
+Help
+- Type in
+help function_name (or command)
+- to receive documentation on a command or function, similar to man in Linux
+
+Data types in Matlab
+- use
+uint8
+int8
+- to store unsigned and signed 8 bit integers respectively
+- use
+uint64
+int64
+- to store unsigned and signed 64 bit integers respectively
+
+- reminder: unsigned integers cannot store negative numbers, will round
+negatives to 0
+
+- by default, matlab will store numbers as floating point decimals
+- a floating point decimal is a number described in scientific notation
+- to see a shortened version of a decimal type:
+format short
+- to see a long version of a decimal, type:
+format long
+
 
