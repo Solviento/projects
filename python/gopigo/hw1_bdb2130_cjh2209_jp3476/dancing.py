@@ -2,6 +2,8 @@ from gopigo import *
 from time import sleep
 import random
 
+''' Tells GoPiGo to move around in random directions for ~20 seconds '''
+
 for i in range(20):
 
     rand = random.randint(1, 4)

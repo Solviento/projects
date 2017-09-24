@@ -6,10 +6,10 @@ from time import sleep
 Set up the GoPiGo so that its sensor is less than 60 centimeters away from a single object
 at a direct 90 degree angle left of the sensor.'''
 
-servo_pos=90
+servo_pos=78
 
 servo(servo_pos)
-sleep(5)
+sleep(1)
 
 while True:
     servo(servo_pos)
@@ -20,4 +20,3 @@ while True:
     if(dist < 60):
         print('Beam width: ' + str(2 * (180 - servo_pos)))
         break
-    
