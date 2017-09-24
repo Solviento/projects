@@ -4,7 +4,7 @@ import math
 from gopigo import *
 from time import sleep
 
-# adjust sonic sensor servor with added offset bias (vals: 0-90-180)
+# adjust sonic sensor servo with added offset bias (vals: 0-90-180)
 servo_pos = 78
 servo(servo_pos)
 
