@@ -1,0 +1,60 @@
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    margin: 0px;
+    display: grid;
+    grid-template-areas: "sidebar-left header-nav sidebar-right"
+                        "sidebar-left sub-header sidebar-right"
+                        "sidebar-left post-container sidebar-right";
+    grid-template-columns: 10fr 80fr 10fr;
+    grid-template-rows: 7fr 7fr 86fr;
+}
+.header-nav{
+    grid-area: header-nav;
+    border: .1px solid black;
+}
+.sidebar-left{
+    grid-area: sidebar-left;
+    border: .1px solid black;
+}
+.sidebar-right{
+    grid-area: sidebar-right;
+    border: .1px solid black;
+}
+.sub-header{
+    grid-area: sub-header;
+    border: .1px solid black;
+    display: grid;
+    grid-template-columns: 10fr 10fr 80fr;
+}
+.button-container{
+    border: .1px solid black;
+}
+.post-container{
+    grid-area: post-container;
+    border: .1px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.post-container>div{
+    border: .1px solid black;
+}
+.post-object>div{
+    border: .1px solid black;
+}
+.post-object{
+    display: grid;
+    grid-template-rows: 70fr 30fr;
+}
+.post-object>div{
+    border: .1px solid black;
+}
+.post-text-brief{
+    display: grid;
+    grid-template-rows: 30fr 70fr;
+}
+.post-text-brief>div{
+    border: .1px solid black;
+}
