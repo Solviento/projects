@@ -15,6 +15,10 @@ body{
     grid-area: header-nav;
     border: .1px solid black;
 }
+.navb{
+    /* height: 7vh; */
+    /* padding: 0px !important; */
+}
 .sidebar-left{
     grid-area: sidebar-left;
     border: .1px solid black;
@@ -64,7 +68,6 @@ body{
 }
 .post-image{
     /* display: grid; */
-    
 }
 .image-css{
     /* height: 100px; */
