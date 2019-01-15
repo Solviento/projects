@@ -47,5 +47,7 @@ def publish():
         cursor.close() 
         conn.close()
 
+# TODO: create attach image function, work on retrieving post data and displaying it on home html
+
 if __name__ == '__main__':
     app.run(port=5004)
