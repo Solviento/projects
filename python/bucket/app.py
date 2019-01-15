@@ -21,6 +21,9 @@ def main():
 def showSignUp():
     return render_template('signup.html')
 
+@app.route('/showHome')
+def showHome():
+    return render_template('index.html')
 
 @app.route('/signUp',methods=['POST','GET'])
 def signUp():
@@ -46,6 +49,7 @@ def signUp():
             else:
                 return json.dumps({'error':str(data[0])})
         else:
+            print('enter the required field')
             return json.dumps({'html':'<span>Enter the required fields</span>'})
 
     except Exception as e:
