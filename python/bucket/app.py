@@ -34,10 +34,6 @@ def publish():
             conn = mysql.connect()
             cursor = conn.cursor()
             _hashed_password = generate_password_hash(_password)
-            # # print(type(_hashed_password))
-            # _hashed_password2 = _hashed_password[0:45] #str(_hashed_password) + "heloooo"
-            # print(_hashed_password2)
-            # CANNOT USE HASHED_PASSWORD INSIDE STORED PROCEDURE CALL
             cursor.callproc('sp_createUser', (_name, _email, _hashed_password))
             print("1")
             data = cursor.fetchall()
