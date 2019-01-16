@@ -34,14 +34,19 @@ def publish():
             conn = mysql.connect()
             cursor = conn.cursor()
             _hashed_password = generate_password_hash(_password)
-            print(_hashed_password)
+            # # print(type(_hashed_password))
+            # _hashed_password2 = _hashed_password[0:45] #str(_hashed_password) + "heloooo"
+            # print(_hashed_password2)
+            # CANNOT USE HASHED_PASSWORD INSIDE STORED PROCEDURE CALL
             cursor.callproc('sp_createUser', (_name, _email, _hashed_password))
+            print("1")
             data = cursor.fetchall()
 
             if len(data) is 0:
                 conn.commit()
                 return json.dumps({'message': 'Post saved successfully!'})
             else:
+                print(data)
                 return json.dumps({'error':str(data[0])})
         else:
             return json.dumps({'html':'<span>Enter the required fields</span>'})
