@@ -11,5 +11,5 @@ BEGIN
 				(
 					p_title,
 					p_text
-				);
+				);2
 END

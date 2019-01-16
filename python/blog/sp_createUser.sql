@@ -4,6 +4,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createUser`(
     IN p_password VARCHAR(20)
 )
 BEGIN
+
     if ( select exists (select 1 from tbl_user where user_username = p_username) ) THEN
      
         select 'Username Exists !!';
@@ -24,4 +25,4 @@ BEGIN
         );
      
     END IF;
-END$$
+END

@@ -26,8 +26,8 @@ def publish():
         # _title = request.form.get('postTitle')
         _title = request.form['postTitle']
         _text = request.form['postText']
-        print(_title)
-        print(_text)
+        # print(_title)
+        # print(_text)
         if _title and _text:
             conn = mysql.connect()
             cursor = conn.cursor()
