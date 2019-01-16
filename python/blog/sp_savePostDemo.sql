@@ -1,5 +1,5 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savePostDemo`(
-    IN p_title VARCHAR(20),
+    IN p_title VARCHAR(90),
     IN p_text TEXT(1000)
 )
 BEGIN
