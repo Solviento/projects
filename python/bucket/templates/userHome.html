@@ -5,20 +5,59 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <link href="../static/css/signup.css" rel="stylesheet">
+    <script src="../static/js/jquery-1.11.2.js"></script>
+    <script>
+	$(function(){
+		$.ajax({
+			url : '/getWish',
+			type : 'GET',
+			success: function(res){
+				var div = $('<div>')
+                .attr('class', 'list-group')
+                .append($('<a>')
+                    .attr('class', 'list-group-item active')
+                    .append($('<h4>')
+                        .attr('class', 'list-group-item-heading'),
+                        $('<p>')
+                        .attr('class', 'list-group-item-text')));
+                    var wishObj = JSON.parse(res);
+                    var wish = '';
+                    
+                    $.each(wishObj,function(index, value){
+                        wish = $(div).clone();
+                        $(wish).find('h4').text(value.Title);
+                        // alert("2");
+                        $(wish).find('p').text(value.Description);
+                        $('.jumbotron').append(wish);
+                    });
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        });
+    </script>
 </head>
  <body>
     <div class="container">
-    <div class="header">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="/logout">Logout</a>
-                </li>
-            </ul>
-        </nav>
-        <h3 class="text-muted">Python Flask App</h3>
-    </div>
-    <div class="jumbotron">
-        <h1>Welcome Home !!</h1>
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="/logout">Logout</a>
+                    <li role="presentation"><a href="/showAddWish">Add Wish</a></li>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Python Flask App</h3>
+        </div>
+        <div class="jumbotron">
+            <!-- <h1>Welcome Home !!</h1>
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">Wish Title</h4>
+                    <p class="list-group-item-text">Wish Description</p>
+                </a>
+            </div> -->
         </div>
     </div>
 </body>

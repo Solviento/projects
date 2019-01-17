@@ -4,6 +4,7 @@ from werkzeug import generate_password_hash, check_password_hash
 
 mysql = MySQL()
 app = Flask(__name__)
+app.secret_key = 'secret key!'  # need to add secret key, otherwise will return exception error
 
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'solviento'
@@ -32,6 +33,7 @@ def userHome():
     if session.get('user'):
         return render_template('userHome.html')
     else:
+        print("/userHome error")
         return render_template('error.html',error = 'Unauthorized Access')
 
 @app.route('/showHome')
@@ -43,6 +45,62 @@ def logout():
     session.pop('user',None)
     return redirect('/')
 
+@app.route('/showAddWish')
+def showAddWish():
+    return render_template('addWish.html')
+
+@app.route('/addWish',methods=['POST'])
+def addWish():
+    try:
+        if session.get('user'):
+            _title = request.form['inputTitle']
+            _description = request.form['inputDescription']
+            _user = session.get('user')
+ 
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_addWish',(_title,_description,_user))
+            data = cursor.fetchall()
+ 
+            if len(data) is 0:
+                conn.commit()
+                return redirect('/userHome')
+            else:
+                return render_template('error.html',error = 'An error occurred!')
+        else:
+            return render_template('error.html',error = 'Unauthorized Access')
+    except Exception as e:
+        return render_template('error.html',error = str(e))
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.route('/getWish')
+def getWish():
+    try:
+        if session.get('user'):
+            _user = session.get('user')
+ 
+            con = mysql.connect()
+            cursor = con.cursor()
+            cursor.callproc('sp_GetWishByUser',(_user,))
+            wishes = cursor.fetchall()
+ 
+            wishes_dict = []
+            for wish in wishes:
+                wish_dict = {
+                        'Id': wish[0],
+                        'Title': wish[1],
+                        'Description': wish[2],
+                        'Date': wish[4]}
+                wishes_dict.append(wish_dict)
+ 
+            return json.dumps(wishes_dict)
+        else:
+            return render_template('error.html', error = 'Unauthorized Access')
+    except Exception as e:
+        return render_template('error.html', error = str(e))
+        
 @app.route('/signUp',methods=['POST','GET'])
 def publish():
     try:
@@ -81,15 +139,18 @@ def validateLogin():
         cursor.callproc('sp_validateLogin',(_username,))
         data = cursor.fetchall()
         if len(data) > 0:
-            print(data)
+            # print(data[0][0])
             if check_password_hash(str(data[0][3]),_password):
                 session['user'] = data[0][0]
                 return redirect('/userHome')
             else:
-                return render_template('error.html',error = 'Wrong Email address or Password2.')
+                # print("incorrect password")
+                return render_template('error.html',error = 'Wrong Password.')
         else:
-            return render_template('error.html',error = 'Wrong Email address or Password3.')
+            # print("no data returned")
+            return render_template('error.html',error = 'Wrong Email address.')
     except Exception as e:
+        print("Exception error: " + str(e))
         return render_template('error.html',error = str(e))
     finally:
         cursor.close()
