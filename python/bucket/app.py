@@ -112,21 +112,38 @@ def getWish():
  
             _limit = pageLimit
             _offset = request.form['offset']
+            _total_records = 0
+            
+            
             con = mysql.connect()
             cursor = con.cursor()
-            cursor.callproc('sp_GetWishByUser',(_user,_limit,_offset))
+            cursor.callproc('sp_GetWishByUser',(_user,_limit,_offset,_total_records))
             wishes = cursor.fetchall()
+            
+            cursor.close()
+            
+            cursor = con.cursor()
+            cursor.execute('SELECT @_sp_GetWishByUser_3');
+            
+            outParam = cursor.fetchall()
+            print(outParam)
  
+            response = []
             wishes_dict = []
+            
             for wish in wishes:
                 wish_dict = {
-                        'Id': wish[0],
-                        'Title': wish[1],
-                        'Description': wish[2],
-                        'Date': wish[4]}
+                    'Id': wish[0],
+                    'Title': wish[1],
+                    'Description': wish[2],
+                    'Date': wish[4]}
+                # print(wish_dict)
                 wishes_dict.append(wish_dict)
- 
-            return json.dumps(wishes_dict)
+                
+            response.append(wishes_dict)
+            response.append({'total':outParam[0][0]}) 
+            
+            return json.dumps(response)
         else:
             return render_template('error.html', error = 'Unauthorized Access')
     except Exception as e:
