@@ -126,7 +126,7 @@ def getWish():
             cursor.execute('SELECT @_sp_GetWishByUser_3');
             
             outParam = cursor.fetchall()
-            print(outParam)
+            # print(outParam)
  
             response = []
             wishes_dict = []
