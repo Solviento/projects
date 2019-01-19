@@ -78,15 +78,43 @@ def addWish():
         cursor.close()
         conn.close()
 
-@app.route('/getWish')
+# @app.route('/getWish')
+# def getWish():
+#     try:
+#         if session.get('user'):
+#             _user = session.get('user')
+ 
+#             con = mysql.connect()
+#             cursor = con.cursor()
+#             cursor.callproc('sp_GetWishByUser',(_user,))
+#             wishes = cursor.fetchall()
+ 
+#             wishes_dict = []
+#             for wish in wishes:
+#                 wish_dict = {
+#                         'Id': wish[0],
+#                         'Title': wish[1],
+#                         'Description': wish[2],
+#                         'Date': wish[4]}
+#                 wishes_dict.append(wish_dict)
+ 
+#             return json.dumps(wishes_dict)
+#         else:
+#             return render_template('error.html', error = 'Unauthorized Access')
+#     except Exception as e:
+#         return render_template('error.html', error = str(e))
+	
+@app.route('/getWish',methods=['POST'])
 def getWish():
     try:
         if session.get('user'):
             _user = session.get('user')
  
+            _limit = pageLimit
+            _offset = request.form['offset']
             con = mysql.connect()
             cursor = con.cursor()
-            cursor.callproc('sp_GetWishByUser',(_user,))
+            cursor.callproc('sp_GetWishByUser',(_user,_limit,_offset))
             wishes = cursor.fetchall()
  
             wishes_dict = []

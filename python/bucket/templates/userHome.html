@@ -29,10 +29,27 @@
                 });
                 });
             });
+            // function GetWishes(){
+            //     $.ajax({
+            //         url : '/getWish',
+            //         type : 'GET',
+            //         success: function(res){
+            //             var wishObj = JSON.parse(res);
+            //             $('#ulist').empty();
+            //             $('#listTemplate').tmpl(wishObj).appendTo('#ulist');
+            //         },
+            //         error: function(error){
+            //             console.log(error);
+            //         }
+            //     });
+            // }
             function GetWishes(){
                 $.ajax({
-                    url : '/getWish',
-                    type : 'GET',
+                    url: '/getWish',
+                    type: 'POST',
+                    data: {
+                        offset: 0
+                    },
                     success: function(res){
                         var wishObj = JSON.parse(res);
                         $('#ulist').empty();
@@ -42,23 +59,6 @@
                         console.log(error);
                     }
                 });
-                // $.ajax({
-                //     url: '/getWish',
-                //     type: 'POST',
-                //     data: {
-                //         offset: 0
-                //     },
-                //     success: function(res) {
-            
-                //         var wishObj = JSON.parse(res);
-                //         $('#ulist').empty();
-                //         $('#listTemplate').tmpl(wishObj).appendTo('#ulist');
-            
-                //     },
-                //     error: function(error) {
-                //         console.log(error);
-                //     }
-                // });
             }
             function ConfirmDelete(elem){
                 localStorage.setItem('deleteId',$(elem).attr('data-id'));
