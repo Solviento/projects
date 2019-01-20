@@ -1,6 +1,9 @@
-from flask import Flask, render_template, json, request, redirect, session
+from flask import Flask, render_template, json, request,redirect,session,jsonify, url_for
 from flaskext.mysql import MySQL
 from werkzeug import generate_password_hash, check_password_hash
+from werkzeug.wsgi import LimitedStream
+import uuid
+import os
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -277,6 +280,18 @@ def validateLogin():
     finally:
         cursor.close()
         con.close()
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    # file upload handler code will be here
+    if request.method == 'POST':
+        file = request.files['file']
+        extension = os.path.splitext(file.filename)[1]
+        f_name = str(uuid.uuid4()) + extension
+        print(f_name)
+        app.config['UPLOAD_FOLDER'] = 'static\\Uploads'
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], f_name))
+        return json.dumps({'filename': f_name})
 
 if __name__ == "__main__":
     app.run(port=5004)
