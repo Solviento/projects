@@ -344,7 +344,18 @@ def addUpdateLike():
             data = cursor.fetchall()
             if len(data) is 0:
                 conn.commit()
-                return json.dumps({'status': 'OK'})
+                cursor.close()
+                conn.close()
+
+                conn = mysql.connect()
+                cursor = conn.cursor()
+                cursor.callproc('sp_getLikeStatus',(_wishId,_user))
+                result = cursor.fetchall()
+                return json.dumps({
+                    'status': 'OK',
+                    'total': result[0][0],
+                    'likeStatus': result[0][1]
+                })
             else:
                 return render_template(
                     'error.html', error='An error occurred!')

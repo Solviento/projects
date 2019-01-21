@@ -48,7 +48,12 @@
             method: 'POST',
             data: { wish: $(this).attr('id').split('_')[1], like: 1 },
             success: function (response) {
-              console.log(response);
+              var obj = JSON.parse(response);
+              if (obj.likeStatus == "1") {
+                $('#span_' + spId).html('&nbsp;You & ' + (Number(obj.total) - 1) + ' Others');
+              } else {
+                $('#span_' + spId).html('&nbsp;' + obj.total + ' like(s)');
+              }
             },
             error: function (error) {
               console.log(error);
@@ -77,7 +82,7 @@
         'class': 'fa fa-thumbs-up',
         'aria-hidden': 'true'
       });
-      var likeSpan = $('<span>').attr('aria-hidden', 'true').html('&nbsp;' + like + ' like(s)');
+      var likeSpan = $('<span>').attr({ 'aria-hidden': 'true', 'id': 'span_' + id });
       if (hasLiked == "1") {
         likeSpan.html('&nbsp;You & ' + (Number(like) - 1) + ' Others');
       } else {
