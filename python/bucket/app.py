@@ -303,10 +303,11 @@ def upload():
 def getAllWishes():
     try:
         if session.get('user'):
-
+            _user = session.get('user')
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_GetAllWishes')
+            print(_user)
+            cursor.callproc('sp_GetAllWishes',(_user,))
             result = cursor.fetchall()
 
             wishes_dict = []
@@ -315,7 +316,9 @@ def getAllWishes():
                     'Id': wish[0],
                     'Title': wish[1],
                     'Description': wish[2],
-                    'FilePath': wish[3]
+                    'FilePath': wish[3],
+                    'Like': wish[4],
+                    'HasLiked': wish[5]
                 }
                 if (wish[3] is None):
                     wish_dict['FilePath'] = 'static/Uploads/missing.jpg'
