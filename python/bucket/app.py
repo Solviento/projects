@@ -1,4 +1,4 @@
-from flask import Flask, render_template, json, request,redirect,session,jsonify, url_for
+from flask import Flask, render_template, json, request, redirect, session, jsonify, url_for
 from flaskext.mysql import MySQL
 from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.wsgi import LimitedStream
@@ -19,28 +19,7 @@ mysql.init_app(app)
 # Default setting
 pageLimit = 2
 
-
-# class StreamConsumingMiddleware(object):
-#     def __init__(self, app):
-#         self.app = app
-
-#     def __call__(self, environ, start_response):
-#         stream = LimitedStream(environ['wsgi.input'],
-#                                int(environ['CONTENT_LENGTH'] or 0))
-#         environ['wsgi.input'] = stream
-#         app_iter = self.app(environ, start_response)
-#         try:
-#             stream.exhaust()
-#             for event in app_iter:
-#                 yield event
-#         finally:
-#             if hasattr(app_iter, 'close'):
-#                 app_iter.close()
-
-
 app.config['UPLOAD_FOLDER'] = 'static/Uploads'
-# app.wsgi_app = StreamConsumingMiddleware(app.wsgi_app)
-
 
 @app.route('/')
 def main():
@@ -73,6 +52,10 @@ def showHome():
 def logout():
     session.pop('user',None)
     return redirect('/')
+
+@app.route('/showDashboard')
+def showDashboard():
+    return render_template('dashboard.html')
 
 @app.route('/showAddWish')
 def showAddWish():
@@ -120,32 +103,6 @@ def addWish():
         cursor.close()
         conn.close()
 
-# @app.route('/getWish')
-# def getWish():
-#     try:
-#         if session.get('user'):
-#             _user = session.get('user')
-
-#             con = mysql.connect()
-#             cursor = con.cursor()
-#             cursor.callproc('sp_GetWishByUser',(_user,))
-#             wishes = cursor.fetchall()
-
-#             wishes_dict = []
-#             for wish in wishes:
-#                 wish_dict = {
-#                         'Id': wish[0],
-#                         'Title': wish[1],
-#                         'Description': wish[2],
-#                         'Date': wish[4]}
-#                 wishes_dict.append(wish_dict)
-
-#             return json.dumps(wishes_dict)
-#         else:
-#             return render_template('error.html', error = 'Unauthorized Access')
-#     except Exception as e:
-#         return render_template('error.html', error = str(e))
-
 @app.route('/getWish',methods=['POST'])
 def getWish():
     try:
@@ -165,7 +122,7 @@ def getWish():
             cursor.close()
 
             cursor = con.cursor()
-            cursor.execute('SELECT @_sp_GetWishByUser_3');
+            cursor.execute('SELECT @_sp_GetWishByUser_3')
 
             outParam = cursor.fetchall()
             # print(outParam)
@@ -317,7 +274,7 @@ def validateLogin():
             # print(data[0][0])
             if check_password_hash(str(data[0][3]),_password):
                 session['user'] = data[0][0]
-                return redirect('/userHome')
+                return redirect('/showDashboard')
             else:
                 # print("incorrect password")
                 return render_template('error.html',error = 'Wrong Password.')
@@ -340,6 +297,61 @@ def upload():
         f_name = str(uuid.uuid4()) + extension
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], f_name))
         return json.dumps({'filename': f_name})
+
+
+@app.route('/getAllWishes')
+def getAllWishes():
+    try:
+        if session.get('user'):
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_GetAllWishes')
+            result = cursor.fetchall()
+
+            wishes_dict = []
+            for wish in result:
+                wish_dict = {
+                    'Id': wish[0],
+                    'Title': wish[1],
+                    'Description': wish[2],
+                    'FilePath': wish[3]
+                }
+                if (wish[3] is None):
+                    wish_dict['FilePath'] = 'static/Uploads/missing.jpg'
+                wishes_dict.append(wish_dict)
+
+            return json.dumps(wishes_dict)
+        else:
+            return render_template('error.html', error='Unauthorized Access')
+    except Exception as e:
+        return render_template('error.html', error=str(e))
+
+@app.route('/addUpdateLike', methods=['POST'])
+def addUpdateLike():
+    try:
+        if session.get('user'):
+            _wishId = request.form['wish']
+            _like = request.form['like']
+            _user = session.get('user')
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_AddUpdateLikes', (_wishId, _user, _like))
+            data = cursor.fetchall()
+            if len(data) is 0:
+                conn.commit()
+                return json.dumps({'status': 'OK'})
+            else:
+                return render_template(
+                    'error.html', error='An error occurred!')
+        else:
+            return render_template('error.html', error='Unauthorized Access')
+    except Exception as e:
+        return render_template('error.html', error=str(e))
+    finally:
+        cursor.close()
+        conn.close()
 
 if __name__ == "__main__":
     app.run(port=5004)
