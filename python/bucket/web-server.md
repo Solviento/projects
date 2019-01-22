@@ -1,5 +1,8 @@
 IMPORTANT!!
 
+Pip
+- pip install flaskext-mysql
+
 Check Table properties AND Stored Procedures match according to DATATYPE AND MEMORY ALLOCATION
 - Otherwise, python+stored procedure will not call and execute correctly
 - Example:
