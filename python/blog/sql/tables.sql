@@ -4,7 +4,7 @@ CREATE TABLE `tbl_likes` (
   `user_id` int(11) DEFAULT NULL,
   `wish_like` int(11) DEFAULT '0',
   PRIMARY KEY (`like_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `tbl_user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -12,7 +12,7 @@ CREATE TABLE `tbl_user` (
   `user_username` varchar(45) DEFAULT NULL,
   `user_password` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `tbl_wish` (
   `wish_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,4 +24,4 @@ CREATE TABLE `tbl_wish` (
   `wish_accomplished` int(11) DEFAULT '0',
   `wish_private` int(11) DEFAULT '0',
   PRIMARY KEY (`wish_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
