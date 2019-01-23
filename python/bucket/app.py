@@ -223,7 +223,8 @@ def publish():
 
             if len(data) is 0:
                 conn.commit()
-                return json.dumps({'message': 'Post saved successfully!'})
+                # return json.dumps({'message': 'Post saved successfully!'})
+                return redirect('/showDashboard')
             else:
                 print(data)
                 return json.dumps({'error':str(data[0])})
@@ -274,6 +275,7 @@ def validateLogin():
             # print(data[0][0])
             if check_password_hash(str(data[0][3]),_password):
                 session['user'] = data[0][0]
+                print(session['user'])
                 return redirect('/showDashboard')
             else:
                 # print("incorrect password")

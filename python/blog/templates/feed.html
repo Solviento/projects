@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Feed</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+    <script>
+    // $(function () {
+    //     $.ajax({
+    //       url: '/getAllWishes',
+    //       type: 'GET',
+    //       success: function (response) {
+    //         // console.log(response);
+    //         var data = JSON.parse(response);
+    //         var itemsPerRow = 0;
+    //         var div = $('<div>').attr('class', 'row');
+    //         for (var i = 0; i < data.length; i++) {
+    //           if (itemsPerRow < 3) {
+    //             if (i == data.length - 1) {
+    //               div.append(CreateThumb(data[i].Id, data[i].Title, data[i].Description, data[i].FilePath, data[i].Like, data[i].HasLiked));
+    //               $('.well').append(div);
+    //             } else {
+    //               div.append(CreateThumb(data[i].Id, data[i].Title, data[i].Description, data[i].FilePath, data[i].Like, data[i].HasLiked));
+    //               itemsPerRow++;
+    //             }
+    //           } else {
+    //             $('.well').append(div);
+    //             div = $('<div>').attr('class', 'row');
+    //             div.append(CreateThumb(data[i].Id, data[i].Title, data[i].Description, data[i].FilePath, data[i].Like, data[i].HasLiked));
+    //             if (i == data.length - 1) {
+    //               $('.well').append(div);
+    //             }
+    //             itemsPerRow = 1;
+    //           }
+    //         }
+    //       },
+    //       error: function (error) {
+    //         console.log(error);
+    //       }
+    //     });
+    //   })
+    // </script>
+  </head>
+  <body>
+    <div class="header-nav">
+      <nav class="navbar navb navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">BlogUI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/showFeed">Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/showDashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="sidebar-left"></div>
+    <div class="sub-header">
+    </div>
+    <div class="post-container">
+      <div class="dynamic-feed">
+
+      </div>
+    </div>
+    <div class="sidebar-right"></div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,10 +1,11 @@
 <html>
   <head>
+    <title>BlogUI</title>
     <link rel="stylesheet" href="../static/css/styles.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="../static/js/publish.js"></script>
+    <script src="../static/js/index.js"></script>
   </head>
   <body>
     <div class="header-nav">
@@ -16,10 +17,10 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Sign In/Register</a>
+                <a class="nav-link" href="" data-toggle="modal" data-target="#modalSignin">Sign In</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="logger.html">Post</a>
+                <a class="nav-link" href="" data-toggle="modal" data-target="#modalRegister">Register</a>
               </li>
             </ul>
           </div>
@@ -27,70 +28,44 @@
     </div>
     <div class="sidebar-left"></div>
     <div class="sub-header">
-      <div class="button-container">
-        <button type="button" class="btn btn-light post-button" data-toggle="modal" data-target="#exampleModalCenter">New Post</button>
-      </div>
-      <div class="button-container">
-        <button type="button" class="btn btn-light post-button">Order By</button>
-      </div>
     </div>
     <div class="post-container">
-      <div class="post-sub-container">
-        <div class="post-object">
-          <div class="post-image">
-              <img class="image-css" src="../static/imgs/w01.jpg" alt="w01">
-          </div>
-          <div class="post-text-brief">
-            <div class="text-data">
-              <div class="data-author">
-                Mr. Author
-              </div>
-              <div class="data-date">
-                1/13/2019
-              </div>
-            </div>
-            <div class="text-brief">
-              Prieview sample of text inside blog post.
-            </div>
-          </div>
-        </div>
-        <div class="post-object">
-          <div class="post-image">
-            <!-- <img src="w01.jpg" alt="w01"> -->
-          </div>
-          <div class="post-text-brief">
-            <div class="text-data">
-              <div class="data-author">
-                Mr. Author
-              </div>
-              <div class="data-date">
-                1/13/2019
-              </div>
-            </div>
-            <div class="text-brief">
-              Prieview sample of text inside blog post.
-            </div>
-          </div>
-        </div>
-      </div>
+      add some big preview here
     </div>
     <div class="sidebar-right"></div>
 
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modalSignin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Blog Post</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Sign In</h5>
           </div>
           <div class="modal-body">
-              <form>
-                <input type="text" name="postTitle" id="postTitle" placeholder="Post Title">
-                <input type="text" name="postText" id="postText" placeholder="Post Text">
+              <form class="form-signin" action="/validateLogin" method="post">
+                <input style="display: block;" type="text" name="inputUsername" id="inputUsername" placeholder="Username">
+                <input type="password" name="inputPassword" id="inputPassword" placeholder="Password">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="" class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
               </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
-            <button type="button" id="btnPublishPost" class="btn btn-primary">Publish</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Registration</h5>
+          </div>
+          <div class="modal-body">
+            <form class="form-signin" action="/register" method="post">
+              <input style="display: block;" type="text" name="regUsername" id="regUsername" placeholder="Username">
+              <input style="display: block;" type="text" name="regEmail" id="regEmail" placeholder="Email">
+              <input type="password" name="regPassword" id="regPassword" placeholder="Password">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button id="" class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+            </form>
           </div>
         </div>
       </div>

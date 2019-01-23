@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="../static/js/publish.js"></script>
+    <script>
+      $(function () {
+          $('#fileupload').fileupload({
+            url: '/upload',
+            dataType: 'json',
+            add: function (e, data) {
+              data.submit();
+            },
+            success: function (response, status) {
+              var filePath = 'static/Uploads/' + response.filename;
+              $('#imgUpload').attr('src', filePath);
+              $('#filePath').val(filePath);
+            },
+            error: function (error) {
+              // alert("failure");
+              console.log(error);
+            }
+          });
+        })
+    </script>
+  </head>
+  <body>
+    <div class="header-nav">
+      <nav class="navbar navb navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/showHome">BlogUI</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/showFeed">Feed</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/showDashboard">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+    </div>
+    <div class="sidebar-left"></div>
+    <div class="sub-header">
+      <div class="button-container">
+        <button type="button" class="btn btn-light post-button" data-toggle="modal" data-target="#modalNewPost">New Post</button>
+      </div>
+      <!-- <div class="button-container">
+        <button type="button" class="btn btn-light post-button">Order By</button>
+      </div> -->
+    </div>
+    <div class="post-container">
+      <div class="dynamic-posts">
+
+      </div>
+    </div>
+    <div class="sidebar-right"></div>
+
+    <div class="modal fade" id="modalNewPost" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">New Post</h5>
+          </div>
+          <div class="modal-body">
+              <form role="form" method="post" action="/createPost">
+                <div class="form-group">
+                  <input type="text" name="inputTitle" id="inputTitle" placeholder=" Title">
+                </div>
+                <div class="form-group">
+                  <input type="text" name="inputDescription" id="inputDescription" placeholder="Description">
+                </div>
+                <input type="file" id="fileupload" name="file" multiple>
+                <img id="imgUpload" style="width: 140px; height: 140px;" class="img-thumbnail"><input type="hidden" name="filePath" id="filePath"></input>
+                <div class="form-group">
+                  <input name="private" type="checkbox"> Mark as Private <i class="fas fa-unlock-alt" aria-hidden="true"></i>
+                </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+            <input id="btnPublishPost" name="singlebutton" class="btn btn-primary" type="submit" value="Publish" />
+            <!-- <button type="button" id="btnPublishPost" class="btn btn-primary">Publish</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>    
+  </body>
+</html>
