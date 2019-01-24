@@ -1,4 +1,4 @@
-CREATE DEFINER=`solviento`@`%` PROCEDURE `sp_deleteWish`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteWish`(
 IN p_wish_id bigint,
 IN p_user_id bigint
 )
