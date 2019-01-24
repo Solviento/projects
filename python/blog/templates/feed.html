@@ -10,41 +10,61 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
       crossorigin="anonymous">
     <script>
-    // $(function () {
-    //     $.ajax({
-    //       url: '/getAllWishes',
-    //       type: 'GET',
-    //       success: function (response) {
-    //         // console.log(response);
-    //         var data = JSON.parse(response);
-    //         var itemsPerRow = 0;
-    //         var div = $('<div>').attr('class', 'row');
-    //         for (var i = 0; i < data.length; i++) {
-    //           if (itemsPerRow < 3) {
-    //             if (i == data.length - 1) {
-    //               div.append(CreateThumb(data[i].Id, data[i].Title, data[i].Description, data[i].FilePath, data[i].Like, data[i].HasLiked));
-    //               $('.well').append(div);
-    //             } else {
-    //               div.append(CreateThumb(data[i].Id, data[i].Title, data[i].Description, data[i].FilePath, data[i].Like, data[i].HasLiked));
-    //               itemsPerRow++;
-    //             }
-    //           } else {
-    //             $('.well').append(div);
-    //             div = $('<div>').attr('class', 'row');
-    //             div.append(CreateThumb(data[i].Id, data[i].Title, data[i].Description, data[i].FilePath, data[i].Like, data[i].HasLiked));
-    //             if (i == data.length - 1) {
-    //               $('.well').append(div);
-    //             }
-    //             itemsPerRow = 1;
-    //           }
-    //         }
-    //       },
-    //       error: function (error) {
-    //         console.log(error);
-    //       }
-    //     });
-    //   })
-    // </script>
+    $(function () {
+        $.ajax({
+          url: '/getAllPosts',
+          type: 'GET',
+          success: function (response) {
+            console.log(response);
+            var data = JSON.parse(response);
+            for (var i = 0; i < data.length; i++){
+              var postObject = $('<div>').attr({
+                'class': 'post-object'
+              });
+              var postImage = $('<div>').attr({
+                'class': 'post-image'
+              })
+              var img = $('<img>').attr({
+                'class': 'image-css',
+                'src': data[i].FilePath
+              });
+              var imgObject = postImage.append(img);
+              var textBrief = $('<div>').attr({
+                'class': 'post-text-brief'
+              });
+              var metadata = $('<div>').attr({
+                'class': 'text-metadata'
+              });
+              var metaTitle = $('<p>').attr({
+                'class': 'metadata-title'
+              });
+              metaTitle.text(data[i].Title);
+              var metaInfo = $('<p>').attr({
+                'class': 'metadata-info'
+              });
+              metaInfo.text('—' + data[i].CreateDate + '—' + data[i].OwnerId);
+              var textPreview = $('<div>').attr({
+                'class':'text-preview'
+              });
+              var desc = data[i].Description;
+              textPreview.text(desc.substring(0,320));
+              
+              metadata.append(metaTitle);
+              metadata.append(metaInfo);
+              textBrief.append(metadata);
+              textBrief.append(textPreview);
+              postObject.append(imgObject);
+              postObject.append(textBrief);
+              // var post = postObject.append();
+              $('.post-sub-container').append(postObject);
+            }
+          },
+          error: function (error) {
+            console.log(error);
+          }
+        });
+      })
+    </script>
   </head>
   <body>
     <div class="header-nav">
@@ -74,7 +94,9 @@
     </div>
     <div class="post-container">
       <div class="dynamic-feed">
-
+        <div class="post-sub-container">
+          
+        </div>
       </div>
     </div>
     <div class="sidebar-right"></div>

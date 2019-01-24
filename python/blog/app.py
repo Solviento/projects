@@ -2,6 +2,7 @@ from flask import Flask, render_template, json, request, redirect, session, json
 from flaskext.mysql import MySQL
 from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.wsgi import LimitedStream
+import datetime
 import uuid
 import os
 
@@ -17,6 +18,8 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 mysql.init_app(app)
+app.config['UPLOAD_FOLDER'] = 'static/Uploads'  # needs to be declared, investigate further
+
 
 @app.route('/')
 def index():
@@ -137,8 +140,11 @@ def getAllPosts():
                     'PostId': post[0],
                     'Title': post[1],
                     'Description': post[2],
-                    'FilePath': post[3]
+                    'FilePath': post[3],
+                    'CreateDate': post[4].strftime('%m/%d/%y'),
+                    'OwnerId': post[5]
                 }
+                # print(type(post[4]))
                 if (post[3] is None):
                     post['FilePath'] = 'static/Uploads/missing.jpg'
                 posts_dict.append(post_dict)
@@ -156,6 +162,7 @@ def createPost():
         if session.get('user'):
             _title = request.form['inputTitle']
             _description = request.form['inputDescription']
+            _desc = _description[:999]
             _user = session.get('user')
             if request.form.get('filePath') is None:
                 _filePath = ''
@@ -171,7 +178,7 @@ def createPost():
             cursor = conn.cursor()
             cursor.callproc(
                 'sp_createPost',
-                (_title, _description, _user, _filePath, _private))
+                (_title, _desc, _user, _filePath, _private))
             data = cursor.fetchall()
 
             if len(data) is 0:
@@ -198,6 +205,90 @@ def upload():
         f_name = str(uuid.uuid4()) + extension
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], f_name))
         return json.dumps({'filename': f_name})
+
+
+@app.route('/addPost', methods=['POST'])
+def addPost():
+    try:
+        if session.get('user'):
+            _title = request.form['inputTitle']
+            _description = request.form['inputDescription']
+            _user = session.get('user')
+            if request.form.get('filePath') is None:
+                _filePath = ''
+            else:
+                _filePath = request.form.get('filePath')
+
+            if request.form.get('private') is None:
+                _private = 0
+            else:
+                _private = 1
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc(
+                'sp_addPost',
+                (_title, _description, _user, _filePath, _private))
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return redirect('/showDashboard')
+            else:
+                return render_template(
+                    'error.html', error='An error occurred!')
+        else:
+            return render_template('error.html', error='Unauthorized Access')
+    except Exception as e:
+        return render_template('error.html', error=str(e))
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.route('/getPost')#, methods=['POST'])
+def getPost():
+    try:
+        if session.get('user'):
+            _user = session.get('user')
+
+            _total_records = 0
+
+            con = mysql.connect()
+            cursor = con.cursor()
+            cursor.callproc('sp_GetPostByUser',
+                            (_user, _total_records))
+            wishes = cursor.fetchall()
+
+            cursor.close()
+
+            cursor = con.cursor()
+            cursor.execute('SELECT @_sp_GetPostByUser_3')
+
+            outParam = cursor.fetchall()
+            # print(outParam)
+
+            response = []
+            wishes_dict = []
+
+            for wish in wishes:
+                wish_dict = {
+                    'Id': wish[0],
+                    'Title': wish[1],
+                    'Description': wish[2],
+                    'Date': wish[4]
+                }
+                # print(wish_dict)
+                wishes_dict.append(wish_dict)
+
+            response.append(wishes_dict)
+            response.append({'total': outParam[0][0]})
+
+            return json.dumps(response)
+        else:
+            return render_template('error.html', error='Unauthorized Access')
+    except Exception as e:
+        return render_template('error.html', error=str(e))
 
 
 if __name__ == '__main__':
