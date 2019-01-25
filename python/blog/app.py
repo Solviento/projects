@@ -31,11 +31,13 @@ def showHome():
 
 @app.route("/showFeed")
 def showFeed():
+    print("feed")
     return render_template('feed.html')
 
 
 @app.route("/showDashboard")
 def showDashboard():
+    print("dashboard")
     return render_template('dashboard.html')
 
 
@@ -128,6 +130,7 @@ def getAllPosts():
             _user = session.get('user')
             conn = mysql.connect()
             cursor = conn.cursor()
+            print(_user)
             cursor.callproc('sp_getFeed', (_user, ))
             result = cursor.fetchall()
 
@@ -141,7 +144,6 @@ def getAllPosts():
                     'CreateDate': post[4].strftime('%m/%d/%y'),
                     'OwnerId': post[5]
                 }
-
                 # print(type(post[4]))
                 if (post[3] is None):
                     post['FilePath'] = 'static/Uploads/missing.jpg'
@@ -162,10 +164,10 @@ def createPost():
             _description = request.form['inputDescription']
             _desc = _description[:999]
             _user = session.get('user')
-            if request.form.get('newfilePath') is None:
+            if request.form.get('filePath') is None:
                 _filePath = ''
             else:
-                _filePath = request.form.get('newfilePath')
+                _filePath = request.form.get('filePath')
 
             if request.form.get('private') is None:
                 _private = 0
@@ -256,32 +258,30 @@ def getPost():
             cursor = con.cursor()
             cursor.callproc('sp_GetPostByUser',
                             (_user, _total_records))
-            posts = cursor.fetchall()
+            wishes = cursor.fetchall()
 
             cursor.close()
 
             cursor = con.cursor()
             cursor.execute('SELECT @_sp_GetPostByUser_3')
 
-
             outParam = cursor.fetchall()
+            # print(outParam)
 
             response = []
-            posts_dict = []
+            wishes_dict = []
 
-            for post in posts:
-                post_dict = {
-                    'Id': post[0],
-                    'Title': post[1],
-                    'Description': post[2],
-                    'Date': post[4].strftime('%m/%d/%y'),
-                    'FilePath': post[5]
+            for wish in wishes:
+                wish_dict = {
+                    'Id': wish[0],
+                    'Title': wish[1],
+                    'Description': wish[2],
+                    'Date': wish[4]
                 }
-                _desc = post_dict['Description'][:320]
-                post_dict['Description'] = _desc
-                posts_dict.append(post_dict)
+                # print(wish_dict)
+                wishes_dict.append(wish_dict)
 
-            response.append(posts_dict)
+            response.append(wishes_dict)
             response.append({'total': outParam[0][0]})
 
             return json.dumps(response)
@@ -289,90 +289,6 @@ def getPost():
             return render_template('error.html', error='Unauthorized Access')
     except Exception as e:
         return render_template('error.html', error=str(e))
-
-
-@app.route('/getPostById', methods=['POST'])
-def getPostById():
-    try:
-        if session.get('user'):
-            _id = request.form['id']
-            _user = session.get('user')
-
-            conn = mysql.connect()
-            cursor = conn.cursor()
-            cursor.callproc('sp_GetPostById', (_id, _user))
-            result = cursor.fetchall()
-
-            post = []
-            post.append({
-                'Id': result[0][0],
-                'Title': result[0][1],
-                'Description': result[0][2],
-                'FilePath': result[0][3],
-                'Private': result[0][4]
-            })
-
-            return json.dumps(post)
-        else:
-            return render_template('error.html', error='Unauthorized Access')
-    except Exception as e:
-        return render_template('error.html', error=str(e))
-
-
-@app.route('/updatePost', methods=['POST'])
-def updatePost():
-    try:
-        if session.get('user'):
-            _user = session.get('user')
-            _title = request.form['title']
-            _description = request.form['description']
-            _post_id = request.form['id']
-            _filePath = request.form['updatedfilePath']
-            _isPrivate = request.form['isPrivate']
-            print(type(_filePath))
-            conn = mysql.connect()
-            cursor = conn.cursor()
-            cursor.callproc(
-                'sp_updatePost',
-                (_title, _description, _post_id, _user, _filePath, _isPrivate))
-            data = cursor.fetchall()
-
-            if len(data) is 0:
-                conn.commit()
-                return json.dumps({'status': 'OK'})
-            else:
-                return json.dumps({'status': 'ERROR'})
-    except Exception as e:
-        return json.dumps({'status': 'Unauthorized access'})
-    finally:
-        cursor.close()
-        conn.close()
-
-
-@app.route('/deletePost', methods=['POST'])
-def deletePost():
-    try:
-        if session.get('user'):
-            _id = request.form['id']
-            _user = session.get('user')
-
-            conn = mysql.connect()
-            cursor = conn.cursor()
-            cursor.callproc('sp_deletePost', (_id, _user))
-            result = cursor.fetchall()
-
-            if len(result) is 0:
-                conn.commit()
-                return json.dumps({'status': 'OK'})
-            else:
-                return json.dumps({'status': 'An Error occured'})
-        else:
-            return render_template('error.html', error='Unauthorized Access')
-    except Exception as e:
-        return json.dumps({'status': str(e)})
-    finally:
-        cursor.close()
-        conn.close()
 
 
 if __name__ == '__main__':
