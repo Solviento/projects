@@ -15,7 +15,7 @@
           url: '/getAllPosts',
           type: 'GET',
           success: function (response) {
-            console.log(response);
+            // console.log(response);
             var data = JSON.parse(response);
             for (var i = 0; i < data.length; i++){
               var postObject = $('<div>').attr({
