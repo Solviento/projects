@@ -311,7 +311,7 @@ def getPostById():
                 'FilePath': result[0][3],
                 'Private': result[0][4]
             })
-
+            print("private: ", post[0]['Private'])
             return json.dumps(post)
         else:
             return render_template('error.html', error='Unauthorized Access')
@@ -323,15 +323,19 @@ def getPostById():
 def updatePost():
     try:
         if session.get('user'):
-            print("3")
+            # takes from below variables:
+            # editTitle: $('#editTitle').val(),
+            # editDescription: $('#editDescription').val(),
             _user = session.get('user')
-            _title = request.form['title']
-            _description = request.form['description']
-            _post_id = request.form['id']
+            _title = request.form['editTitle']
+            print("3.1")
+            _description = request.form['editDescription']
+            print("3.2")
+            _post_id = request.form['editId']
             print("2")
-            _filePath = request.form['updatedfilePath']
+            _filePath = request.form['editFilePath']
             print("1")
-            _isPrivate = request.form['isPrivate']
+            _isPrivate = request.form['editIsPrivate']
             print(_filePath)
             conn = mysql.connect()
             cursor = conn.cursor()
