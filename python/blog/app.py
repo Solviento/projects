@@ -128,7 +128,7 @@ def getAllPosts():
             _user = session.get('user')
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_getFeed', (_user, ))
+            cursor.callproc('sp_GetAllPublicPosts', (_user, ))
             result = cursor.fetchall()
 
             posts_dict = []

@@ -152,7 +152,6 @@ def getWish():
 def getWishById():
     try:
         if session.get('user'):
-
             _id = request.form['id']
             _user = session.get('user')
 
@@ -189,7 +188,7 @@ def updateWish():
             _filePath = request.form['filePath']
             _isPrivate = request.form['isPrivate']
             _isDone = request.form['isDone']
-
+            print(_filePath)
             conn = mysql.connect()
             cursor = conn.cursor()
             cursor.callproc('sp_updateWish',
@@ -370,4 +369,4 @@ def addUpdateLike():
         conn.close()
 
 if __name__ == "__main__":
-    app.run(port=5004)
+    app.run(port=5002)
