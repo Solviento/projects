@@ -60,7 +60,7 @@ body{
     /* border: .1px solid black; */
 }
 .post-object{
-    display: grid;
+    /* display: grid; */
     grid-template-rows: 70fr 30fr;
 }
 .post-object>div{
@@ -98,4 +98,26 @@ body{
 }
 .text-preview{
 
+}
+
+/* modal css */
+.modal-header-custom{
+
+}
+.modal-body-custom{
+
+}
+.header-title{
+    width: 50%;
+    margin: 0 auto;
+}
+.modal-title{
+    text-align: center;
+}
+.input-centered{
+    margin: 0 auto;
+    display: block;
+}
+.login-buttons{
+    margin: 0 auto;
 }
