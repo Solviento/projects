@@ -13,28 +13,29 @@ body{
 }
 .header-nav{
     grid-area: header-nav;
-    border: .1px solid black;
+    height: 100%;
+    /* border: .1px solid black; */
 }
 .navb{
-    /* height: 100%; */
+    height: 100%;
     /* padding: 0px !important; */
 }
 .sidebar-left{
     grid-area: sidebar-left;
-    border: .1px solid black;
+    /* border: .1px solid black; */
 }
 .sidebar-right{
     grid-area: sidebar-right;
-    border: .1px solid black;
+    /* border: .1px solid black; */
 }
 .sub-header{
     grid-area: sub-header;
-    border: .1px solid black;
+    /* border: .1px solid black; */
     display: grid;
-    grid-template-columns: 10fr 10fr 80fr;
+    grid-template-columns: 7fr 12fr 81fr;
 }
 .button-container{
-    border: .1px solid black;
+    /* border: .1px solid black; */
 }
 .post-container{
     grid-area: post-container;
@@ -46,7 +47,7 @@ body{
 }
 .post-sub-container{
     height: 0px;
-    border: .1px solid black;
+    /* border: .1px solid black; */
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     /* grid-template-rows: repeat(auto-fit, 350px); */
@@ -120,4 +121,15 @@ body{
 }
 .login-buttons{
     margin: 0 auto;
+    width: 60%;
+}
+/* css for controlling scrollbar aesthetic */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 8px;
+  background-color: white; /* or add it to the track */
+}
+/* Add a thumb */
+::-webkit-scrollbar-thumb {
+    background: lightgrey;
 }

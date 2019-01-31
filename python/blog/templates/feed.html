@@ -9,6 +9,8 @@
       crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
       crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
     <script>
     $(function () {
         $.ajax({
@@ -69,7 +71,7 @@
   <body>
     <div class="header-nav">
       <nav class="navbar navb navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">BlogUI</a>
+        <a class="navbar-brand" href="/">BlogUI</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
           aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -91,6 +93,22 @@
     </div>
     <div class="sidebar-left"></div>
     <div class="sub-header">
+      <p>View &nbsp;<i class="far fa-square">&nbsp;</i><i class="fas fa-th-large"></i></p>
+      <div>
+      <p style="display: inline-block;">Sort</p>
+        <div style="display: inline-block;" class="dropdown show">
+          <a style="background-color: rgb(240, 240, 240); color: black;"class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-rocket"></i> Best</span>
+          </a>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="#">New</a>
+            <a class="dropdown-item" href="#">Oldest</a>
+            <a class="dropdown-item" href="#">Rising</a>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="post-container">
       <div class="dynamic-feed">

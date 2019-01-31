@@ -11,7 +11,8 @@
     <script type="text/javascript" src="../static/js/jquery.fileupload-process.js"></script>
     <script type="text/javascript" src="../static/js/jquery.fileupload-ui.js"></script>
     <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
     <script>
       $(function () {
         GetPosts();
@@ -134,7 +135,7 @@
   <body>
     <div class="header-nav">
       <nav class="navbar navb navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="/showHome">BlogUI</a>
+          <a class="navbar-brand" href="/">BlogUI</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -275,7 +276,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header" style="text-align:center;">
-            <h4 class="modal-title" style="color:red;" id="deleteModalLabel">You are going to Delete this forever !!</h4>
+            <h4 class="modal-title" id="deleteModalLabel">Confirm delete.</h4>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

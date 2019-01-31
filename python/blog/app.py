@@ -124,7 +124,8 @@ def validateLogin():
 @app.route('/getAllPosts')
 def getAllPosts():
     try:
-        if session.get('user'):
+        # switch back to using no True
+        if session.get('user') or True:
             _user = session.get('user')
             conn = mysql.connect()
             cursor = conn.cursor()
@@ -141,10 +142,6 @@ def getAllPosts():
                     'CreateDate': post[4].strftime('%m/%d/%y'),
                     'OwnerId': post[5]
                 }
-
-                # print(type(post[4]))
-                if (post[3] is None):
-                    post['FilePath'] = 'static/Uploads/missing.jpg'
                 posts_dict.append(post_dict)
 
             return json.dumps(posts_dict)
@@ -162,16 +159,18 @@ def createPost():
             _description = request.form['inputDescriptionCreate']
             _desc = _description[:999]
             _user = session.get('user')
-            if request.form.get('filePathCreate') is None:
-                _filePath = ''
+            if request.form.get('filePathCreate') == '':
+                print("is empty")
+                _filePath = "static/Uploads/missing.jpg"
             else:
+                print("is not empty")
                 _filePath = request.form.get('filePathCreate')
 
             if request.form.get('privateCreate') is None:
                 _private = 0
             else:
                 _private = 1
-
+            print("FILE",_filePath)
             conn = mysql.connect()
             cursor = conn.cursor()
             cursor.callproc(
