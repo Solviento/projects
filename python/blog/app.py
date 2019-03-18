@@ -1,5 +1,6 @@
+
 from flask import Flask, render_template, json, request, redirect, session, jsonify, url_for
-from flaskext.mysql import MySQL
+from flaskext.mysql import MySQL    # python3 pip install flask-mysql
 from werkzeug import generate_password_hash, check_password_hash
 from werkzeug.wsgi import LimitedStream
 import datetime
@@ -11,23 +12,27 @@ app = Flask(__name__)
 app.secret_key = 'secret key!'
 
 # MySQL configurations
+
 app.config['MYSQL_DATABASE_USER'] = 'solviento'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'browni'
 app.config['MYSQL_DATABASE_DB'] = 'blog'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-mysql.init_app(app)
 app.config['UPLOAD_FOLDER'] = 'static/Uploads'  # needs to be declared, investigate further
-
-
+mysql.init_app(app)
+# DO NOT copy
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('indexBlog.html')
+# okay to copy
+@app.route('/showBlog')
+def indexBlog():
+    return render_template('indexBlog.html')
 
 @app.route('/showHome')
 def showHome():
-    return render_template('index.html')
+    return render_template('indexBlog.html')
 
 @app.route("/showFeed")
 def showFeed():
@@ -380,6 +385,6 @@ def deletePost():
         cursor.close()
         conn.close()
 
-
+# should not copy
 if __name__ == '__main__':
     app.run(debug=True, port=5004)
